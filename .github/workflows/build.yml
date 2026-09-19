@@ -1,0 +1,30 @@
+name: Build Magisk Module
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Magisk ZIP
+        run: |
+          mkdir -p build
+
+          zip -r build/WP19-TypeC-Sink-v1.0.zip \
+            module.prop \
+            service.sh \
+            typec-role
+
+      - name: Upload module
+        uses: actions/upload-artifact@v4
+        with:
+          name: WP19-TypeC-Sink
+          path: build/WP19-TypeC-Sink-v1.0.zip
