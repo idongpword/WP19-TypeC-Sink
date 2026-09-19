@@ -14,14 +14,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Prepare module
+        run: |
+          mkdir -p build/module/system/bin
+
+          cp module.prop build/module/
+          cp service.sh build/module/
+          cp typec-role build/module/system/bin/
+
+          chmod 0755 build/module/service.sh
+          chmod 0755 build/module/system/bin/typec-role
+
       - name: Build Magisk ZIP
         run: |
-          mkdir -p build
-
-          zip -r build/WP19-TypeC-Sink-v1.0.zip \
-            module.prop \
-            service.sh \
-            typec-role
+          cd build/module
+          zip -r ../WP19-TypeC-Sink-v1.0.zip .
 
       - name: Upload module
         uses: actions/upload-artifact@v4
