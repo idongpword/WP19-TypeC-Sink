@@ -1,0 +1,6 @@
+id=wp19.typec.sink
+name=WP19 Pro Type-C Sink
+version=1.0
+versionCode=1
+author=Idong
+description=Keeps the WP19 Pro USB Type-C port in sink mode by default.
