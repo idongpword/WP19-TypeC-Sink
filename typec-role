@@ -1,0 +1,32 @@
+#!/system/bin/sh
+
+PORT="/sys/class/typec/port0"
+
+case "$1" in
+
+    sink)
+        echo sink > "$PORT/preferred_role" 2>/dev/null
+        echo sink > "$PORT/power_role" 2>/dev/null
+        echo "WP19 Pro Type-C: SINK"
+        ;;
+
+    source)
+        echo source > "$PORT/preferred_role" 2>/dev/null
+        echo source > "$PORT/power_role" 2>/dev/null
+        echo "WP19 Pro Type-C: SOURCE"
+        ;;
+
+    *)
+        echo "Usage:"
+        echo "  typec-role sink"
+        echo "  typec-role source"
+        exit 1
+        ;;
+
+esac
+
+echo "Power role:"
+cat "$PORT/power_role" 2>/dev/null
+
+echo "Preferred role:"
+cat "$PORT/preferred_role" 2>/dev/null
